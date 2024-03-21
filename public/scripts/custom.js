@@ -8,7 +8,7 @@ function getPayload() {
 
     const data = {}
 
-    formInputsElement.forEach((input) => {
+    formInputsElement.forEach((input) => { 
         data[input.name] = input.value
     })
 
@@ -42,6 +42,11 @@ function _submit(event) {
 window.document.querySelector('button[type=submit]').addEventListener('click', () => {
     const data = getPayload()
     delete data.token
+    delete data.flag
+
+    if(validator.isEmail(data.email) === false || Boolean(data.password) === false){
+        return
+    }
 
     fetch('/crawler', {
         body: JSON.stringify(data),
